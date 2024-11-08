@@ -1,3 +1,43 @@
 {
     margin:10px;
 }
+
+.my_container{
+    /*border: 2px solid red;*/
+    
+}
+
+.my_panel{
+    width: 90%;
+    margin: auto;
+    height: auto;
+    /*border: 1px solid black;*/
+}
+
+.input_form1{
+    /*border: 2px solid black;*/
+    width: 700px;
+    height: 300px;
+    margin: auto;
+    margin-top: auto;
+    padding: 20 px;
+    border-radius: 10px;
+    font-size: 15px;
+    text-align: justify;
+}
+.input_form2{
+    /*border: 2px solid black;*/
+    width: 700px;
+    height: 550px;
+    margin: auto;
+    margin-top: auto;
+    padding: 20 px;
+    border-radius: 10px;
+    font-size: 15px;
+    text-align: justify;
+}
+.center{
+    text-align: center;
+    margin: auto;
+    color:black
+}
