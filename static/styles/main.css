@@ -49,3 +49,7 @@
 .dashboard{
     border: solid black
 }
+.margin{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
