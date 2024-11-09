@@ -41,3 +41,11 @@
     margin: auto;
     color:black
 }
+.right{
+    text-align: right;
+    margin: auto;
+    color:black
+}
+.dashboard{
+    border: solid black
+}
