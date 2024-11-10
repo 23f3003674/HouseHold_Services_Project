@@ -9,28 +9,30 @@
         <div class = "my_container">
             <div class ="center"><h1>A-Z HOUSEHOLD SERVICES</h1></div>
             <div class ="my_panel">
-                <div class = "input_form1">
-                    <div class="mb-3">
-                        <label for="Registered Email" class="form-label">USER ID(E-Mail)</label>
-                        <input type="email" class="form-control" id="user_name" placeholder="@gmail.com">
-                      </div>
-                    <div class="mb-3">
-                        <label for="Password" class="form-label">PASSWORD</label>
-                        <input type="Password" class="form-control" id="Password" placeholder="Password">
-                      </div>
-                    <div class="mb-3">
-                        <div class ="center"><button type="button" class="btn btn-primary">LOGIN</button></div>
-                        
-                    </div>
-                    <div class="mb-3">
-                        <div class = "center">
-                        <a href ='/templates/signup_customer.html'>NEW CUSTOMER?</a>
-
-                        <a href ='/templates/signup_professional.html'>NEW PROFESSIONAL?</a>
+                <form action="/login" method="POST">
+                    <div class = "input_form1">
+                        <div class="mb-3">
+                            <label for="user_name" class="form-label">USER ID(E-Mail)</label>
+                            <input type="email" class="form-control" name="user_name" id="user_name" placeholder="@gmail.com">
                         </div>
-                    </div>
+                        <div class="mb-3">
+                            <label for="Password" class="form-label">PASSWORD</label>
+                            <input type="password" class="form-control" name="password" id="Password" placeholder="Password">
+                        </div>
+                        <div class="mb-3">
+                            <div class ="center"><button type="submit" class="btn btn-primary">LOGIN</button></div>
+                        
+                        </div>
+                        <div class="mb-3">
+                            <div class = "center">
+                            <a href ='/signup_customer'>NEW CUSTOMER?</a>
+
+                            <a href ='/signup_professional'>NEW PROFESSIONAL?</a>
+                            </div>
+                        </div>
                       
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
         
