@@ -8,7 +8,10 @@ class User_Login(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     email = db.Column(db.String,unique = True,nullable =False)
     password = db.Column(db.String,nullable = False)
-    role = db.Column(db.Integer)
+    customer_id = db.Column(db.Integer, db.ForeignKey("customer.id"))
+    professional_id = db.Column(db.Integer, db.ForeignKey("professional.id"))
+    role = db.Column(db.Integer,nullable=False)
+    status = db.Column(db.String,nullable=False)
 
 class Customer(db.Model):
     __tablename__ ="customer"
@@ -16,7 +19,7 @@ class Customer(db.Model):
     full_name = db.Column(db.String,nullable = False)
     address = db.Column(db.String,nullable = False)
     pincode = db.Column(db.Integer,nullable = False)
-    user_login_id = db.Column(db.Integer, db.ForeignKey("user_login.id"),nullable = False)
+    #user_login_id = db.Column(db.Integer, db.ForeignKey("user_login.id"),nullable = False)
     service_requests = db.relationship("Service_request",cascade="all,delete",backref="customer",lazy = True)
 
 
@@ -27,7 +30,7 @@ class Professional(db.Model):
     experience = db.Column(db.Integer,nullable = False)
     address = db.Column(db.String,nullable = False)
     pincode = db.Column(db.Integer,nullable = False)
-    user_login_id = db.Column(db.Integer, db.ForeignKey("user_login.id"),nullable = False)
+    #user_login_id = db.Column(db.Integer, db.ForeignKey("user_login.id"),nullable = False)
     service_requests = db.relationship("Service_request",cascade="all,delete",backref="professional",lazy = True)
     service_id = db.Column(db.Integer, db.ForeignKey("service.id"),nullable = False)
 
