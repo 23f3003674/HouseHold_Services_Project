@@ -53,3 +53,10 @@
     margin-top: 20px;
     margin-bottom: 10px;
 }
+
+.error{
+    text-align: center;
+    margin: auto;
+    color: red;
+}
+
