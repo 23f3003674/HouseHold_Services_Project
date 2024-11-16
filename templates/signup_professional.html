@@ -25,8 +25,13 @@
                         <input type="text" class="form-control" name="full_name" id="full_name" placeholder="NAME">
                       </div>
                       <div class="mb-3">
-                        <label for="service" class="form-label">SERVICE NAME</label>
-                        <input type="text" class="form-control" name="service" id="service" placeholder="SELECT SERVICE">
+                        <label for="service">CHOOSE A SERVICE</label>
+                        <select name= "service" id = "service"
+                          {%for service in services%}
+                            <option value={{service.id}}>{{service.name}}</option>
+                          {%endfor%}
+                        </select>
+                        
                       </div>
                       <div class="mb-3">
                         <label for="experience" class="form-label">EXPERIENCE(years)</label>
