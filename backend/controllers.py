@@ -63,12 +63,11 @@ def professional_signup():
         if usr:
             return render_template("login.html",msg="THIS MAIL IS ALREADY REGISTERED")
         experience= request.form.get("experience")
-        service_name = request.form.get("service")
+        service_name = request.form.get("service_name")
 
         service =Service.query.filter_by(name=service_name).first()
-        pservice_id =service.id
-
-        new_usr1= Professional(full_name=full_name,address=address,pincode=pincode,experience=experience,service_id = pservice_id)
+        pservice_id = service.id
+        new_usr1= Professional(full_name=full_name,address=address,pincode=pincode,experience=experience,service_id=pservice_id)
         db.session.add(new_usr1)
         db.session.commit()
         new_usr1_id = new_usr1.id
