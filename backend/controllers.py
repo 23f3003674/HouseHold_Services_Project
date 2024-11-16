@@ -114,7 +114,6 @@ def add_service(name):
 
     return render_template("add_service.html",name=name)
 
-
 def get_services():
     services = Service.query.all()
     return services
@@ -127,20 +126,4 @@ def get_user_login():
     user_logins = User_Login.query.all()
     return user_logins
 
-#def get_services_request():
- #   Service_requests = Service_request.query.all()
-  #  return service_requests
 
-#@app.route("/service_rating/<name>",methods=["POST","GET"])
-#def add_service(name):
- #   if request.method =="POST":
-  #      srating=request.form.get("rating")
-  #      sremark=request.form.get("remark")
-        
-  #      new_service_request = Service_request(rating=srating,remark=sremark)
-  #      db.session.add(new_service_request)
-  #      db.session.commit()
-
-   #     return redirect(url_for("customer_dashboard",name=name))
-
-   # return render_template("service_rating.html",name=name)
