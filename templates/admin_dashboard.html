@@ -1,43 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel ="stylesheet" href="/static/styles/main.css">
-        <link href ="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <title>ADMIN DASHBOARD</title>
-    </head>
-    <body>
-        <div class = "my_container">
-            <div class ="center"><h1>A-Z HOUSEHOLD SERVICES</h1></div>
-            <div class ="my_panel">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                      <div class="collapse navbar-collapse" id="navbarText">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                          <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/templates/admin_dashboard.html">HOME</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#">SEARCH</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#">SUMMARY</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="/templates/login.html">LOGOUT</a>
-                          </li>
-                        </ul>
-                        <span class="navbar-text">
-                          WELCOME ADMIN
-                        </span>
-                      </div>
-                    </div>
-                  </nav>
-                  <div class ="margin">
+{%extends "admin_layout.html"%}
+{%block content%}
+                  <div class ="margin"><b>
                     SERVICES
-                  </div>
+                  </b></div>
                   <div class ="dashboard"> 
                     <div class="container text-center">
-                      <div class="row">
+                      <b><div class="row">
                         <div class="col">
                           ID
                         </div>
@@ -50,19 +18,44 @@
                         <div class="col">
                           ACTION
                         </div>
+                      </div></b>
+                    </div>
+                    <div class="container text-center">
+                      <div class="margin1">
+                        {%if services%}
+                          {%for service in services%}
+                          <div class="row">
+                              <div class="col">
+                                {{service.id}}
+                              </div>
+                              <div class="col">
+                                {{service.name}}
+                              </div>
+                              <div class="col">
+                                {{service.base_price}}
+                              </div>
+                              <div class="col">
+                                <a href="#" class="btn btn-outline-warning">EDIT</a> <a href="#" class="btn btn-outline-danger">DELETE</a>
+                              </div>
+                          </div>
+                          {%endfor%}
+                        {%else%}
+                          <h3 class="center">NO SERVICES AVAILABLE</h3>
+                        {%endif%}
+
                       </div>
                     </div>
                   </div>
                   <div class="mb-3">
-                    <div class ="right"><a href ='/templates/add_service.html'>ADD SERVICE</a></div>
+                    <div class ="right"><a href="/service/{{name}}" type ="button" class="btn btn-primary">ADD SERVICE</a></div>
                     
                   </div>
-                  <div class = "margin">
+                  <div class = "margin"><b>
                     PROFESSIONALS
-                  </div>
+                  </b></div>
                   <div class ="dashboard">
                     <div class="container text-center">
-                      <div class="row">
+                      <b><div class="row">
                         <div class="col">
                          ID
                         </div>
@@ -78,16 +71,16 @@
                         <div class="col">
                           ACTION
                         </div>
-                      </div>
+                      </div></b>
                     </div>
                   </div>
-                  <div class ="margin">
+                  <div class ="margin"><b>
                     
                     SERVICE REQUESTS
-                  </div>
+                  </b></div>
                   <div class ="dashboard"> 
                     <div class="container text-center">
-                      <div class="row">
+                      <b><div class="row">
                         <div class="col">
                           ID
                         </div>
@@ -100,16 +93,9 @@
                         <div class="col">
                           STATUS
                         </div>
-                      </div>
+                      </div></b>
                     </div>
                   </div>
 
                 
-                  
-                
-
-            </div>
-        </div>
-        
-    </body>
-</html>
+{%endblock%}

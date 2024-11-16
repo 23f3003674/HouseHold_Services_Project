@@ -1,0 +1,26 @@
+<!--{%extends "customer_layout.html"%}
+{%block content%}
+                <div class ="center"><h3>ADD RATING</h3></div>
+                <form action ="/service_rating/<name>" method ="POST">
+                    <div class = "input_form1">
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">RATING</label>
+                            <input type="number" class="form-control" name ="rating" id="rating" placeholder="ADD RATING">
+                        </div>
+                        <div class="mb-3">
+                            <label for="remark" class="form-label">REMARK</label>
+                            <input type="text" class="form-control" name ="remark" id="remark" placeholder="ADD REMARK">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class ="center"><button type="submit" class="btn btn-primary">SUBMIT</button>
+                    
+                            <a href="/customer/{{name}}" type="button" class="btn btn-primary">CANCEL</a></div>
+                        
+                        </div>
+                    
+                      
+                    </div>
+                </form>
+{%endblock%}
+            -->

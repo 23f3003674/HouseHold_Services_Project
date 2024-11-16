@@ -1,75 +1,29 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel ="stylesheet" href="/static/styles/main.css">
-        <link href ="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <title>CUSTOMER DASHBOARD</title>
-    </head>
-    <body>
-        <div class = "my_container">
-            <div class ="center"><h1>A-Z HOUSEHOLD SERVICES</h1></div>
-            <div class ="my_panel">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                      <div class="collapse navbar-collapse" id="navbarText">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                          <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/templates/customer-dashboard.html">HOME</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#">SEARCH</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#">SUMMARY</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="/templates/login.html">LOGOUT</a>
-                          </li>
-                        </ul>
-                        <span class="navbar-text">
-                          WELCOME CUSTOMER
-                        </span>
-                      </div>
-                    </div>
-                  </nav>
+{%extends "customer_layout.html"%}
+{%block content%}
               
                   <div class="mb-3">
                     <div class ="right"><a href ='#'>PROFILE</a></div>
                     
                   </div>
                   <div class="container text-center">
+                    {%if services%}
                     <div class="row">
-                      <div class="col">
-                        <div class="card" style="width: 18rem;">
+                      {%for service in services%}
+                        <div class="col">
+                          <div class="card" style="width: 18rem;">
                          
-                          <div class="card-body">
-                            <h5 class="card-title">SERVICE 1</h5>
-                            <p class="card-text">A-Z HOUSEHOLD SERVICES</p>
-                            <a href="#" class="btn btn-primary">BOOK NOW</a>
+                            <div class="card-body">
+                              <h5 class="card-title">{{service.name}}</h5>
+                              <p class="card-text">{{service.description}}</p>
+                              <a href="#" class="btn btn-outline-info">BOOK NOW</a>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col">
-                        <div class="card" style="width: 18rem;">
-                          
-                          <div class="card-body">
-                            <h5 class="card-title">SERVICE 2</h5>
-                            <p class="card-text">A-Z HOUSEHOLD SERVICES</p>
-                            <a href="#" class="btn btn-primary">BOOK NOW</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <div class="card" style="width: 18rem;">
-                          
-                          <div class="card-body">
-                            <h5 class="card-title">SERVICE 3</h5>
-                            <p class="card-text">A-Z HOUSEHOLD SERVICES</p>
-                            <a href="#" class="btn btn-primary">BOOK NOW</a>
-                          </div>
-                        </div>
-                      </div>
+                      {%endfor%}
                     </div>
+                    {%else%}
+                    <h3 class="center">NO SERVICES AVAILABLE</h3>
+                    {%endif%}
                   </div>
                   <div class ="margin">
                     SERVICE HISTORY
@@ -94,16 +48,36 @@
                         </div>
                       </div>
                     </div>
+                    <!--<div class="container text-center">
+                      <div class="margin1">
+                        {%if service_requests%}
+                          {%for service_request in service_requests%}
+                          <div class="row">
+                              <div class="col">
+                                {{service_request.id}}
+                              </div>
+                              <div class="col">
+                                {{service.name}}
+                              </div>
+                              <div class="col">
+                                {{service.base_price}}
+                              </div>
+                              <div class="col">
+                                STATUS
+                              </div>
+                              <div class="col">
+                                <a href="#" class="btn btn-outline-success">CLOSE IT</a>
+                              </div>
+                          </div>
+                          {%endfor%}
+                        {%else%}
+                          <h3 class="center">NO SERVICES AVAILABLE</h3>
+                        {%endif%}
+
+                      </div>-->
                   </div>
                   
                   </div>
 
                 
-                  
-                
-
-            </div>
-        </div>
-        
-    </body>
-</html>
+{%endblock%}
