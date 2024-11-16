@@ -70,7 +70,6 @@ def professional_signup():
         service_name = request.form.get("service")
         service = Service.query.filter_by(name=service_name).first()
         pservice_id=service.id
-
         new_usr1= Professional(full_name=full_name,address=address,pincode=pincode,experience=experience,service_id=pservice_id)
         db.session.add(new_usr1)
         db.session.commit()
@@ -119,6 +118,11 @@ def add_service(name):
 def get_services():
     services = Service.query.all()
     return services
+
+#def get_service_id(service):
+ #   service_id = Service.query.filter_by(name=service)
+  #  return service_id
+
 
 #def get_services_request():
  #   Service_requests = Service_request.query.all()
