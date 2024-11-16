@@ -1,6 +1,7 @@
 from flask import Flask, render_template,request,url_for,redirect
 from .models import *
 from flask import current_app as app
+from datetime import date
 
 @app.route("/")
 def home():
@@ -83,7 +84,9 @@ def professional_signup():
 @app.route("/admin/<name>")
 def admin_dashboard(name):
     services = get_services()
-    return render_template("admin_dashboard.html",name=name,services=services)
+    professionals = get_professionals()
+    user_logins = get_user_login()
+    return render_template("admin_dashboard.html",name=name,services=services,professionals = professionals,user_logins=user_logins)
 
 @app.route("/customer/<name>")
 def customer_dashboard(name):
@@ -115,6 +118,14 @@ def add_service(name):
 def get_services():
     services = Service.query.all()
     return services
+
+def get_professionals():
+    professionals = Professional.query.all()
+    return professionals
+
+def get_user_login():
+    user_logins = User_Login.query.all()
+    return user_logins
 
 #def get_services_request():
  #   Service_requests = Service_request.query.all()

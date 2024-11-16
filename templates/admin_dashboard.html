@@ -73,6 +73,34 @@
                         </div>
                       </div></b>
                     </div>
+                    <div class="container text-center">
+                      <div class="margin1">
+                        {%if professionals%}
+                          {%for professional in professionals%}
+                          <div class="row">
+                              <div class="col">
+                                {{professional.id}}
+                              </div>
+                              <div class="col">
+                                {{professional.full_name}}
+                              </div>
+                              <div class="col">
+                                {{professional.experience}}
+                              </div>
+                              <div class="col">
+                                {{(professional.service_id)}}
+                              </div>
+                              <div class="col">
+                                <a href="#" class="btn btn-outline-success">APPROVE</a></a><a href="#" class="btn btn-outline-danger">REJECT</a>
+                              </div>
+                          </div>
+                          {%endfor%}
+                        {%else%}
+                          <h3 class="center">NO PROFESSIONAL AVAILABLE</h3>
+                        {%endif%}
+
+                      </div>
+                    </div>
                   </div>
                   <div class ="margin"><b>
                     
