@@ -28,10 +28,9 @@
                         <label for="service">CHOOSE A SERVICE</label>
                         <select name= "service" id = "service">
                           {%for service in services%}
-                            <option value = {{service.name}}> {{service.name}} </option>
-                          {% endfor %}
+                            <option value={{service.name}}>{{service.name}}</option>
+                          {%endfor%}
                         </select>
-                        
                       </div>
                       <div class="mb-3">
                         <label for="experience" class="form-label">EXPERIENCE(years)</label>

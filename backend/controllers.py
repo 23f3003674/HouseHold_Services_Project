@@ -51,9 +51,6 @@ def customer_signup():
     return render_template("signup_customer.html")
 
 @app.route("/signup_professional",methods=["GET","POST"])
-#def p_signup():
- #   services = get_services()
-  #  return redirect(url_for("signup_professional",services=services))
 def professional_signup():
     services = get_services()
     if request.method =="POST":
@@ -65,12 +62,13 @@ def professional_signup():
         usr= User_Login.query.filter_by(email=uname).first()
         if usr:
             return render_template("login.html",msg="THIS MAIL IS ALREADY REGISTERED")
-
         experience= request.form.get("experience")
         service_name = request.form.get("service")
-        service = Service.query.filter_by(name=service_name).first()
-        pservice_id=service.id
-        new_usr1= Professional(full_name=full_name,address=address,pincode=pincode,experience=experience,service_id=pservice_id)
+
+        service =Service.query.filter_by(name=service_name).first()
+        pservice_id =service.id
+
+        new_usr1= Professional(full_name=full_name,address=address,pincode=pincode,experience=experience,service_id = pservice_id)
         db.session.add(new_usr1)
         db.session.commit()
         new_usr1_id = new_usr1.id
@@ -118,11 +116,6 @@ def add_service(name):
 def get_services():
     services = Service.query.all()
     return services
-
-#def get_service_id(service):
- #   service_id = Service.query.filter_by(name=service)
-  #  return service_id
-
 
 #def get_services_request():
  #   Service_requests = Service_request.query.all()
