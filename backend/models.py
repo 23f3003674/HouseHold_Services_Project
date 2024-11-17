@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-
+from datetime import datetime,timezone
 db = SQLAlchemy()
 
 #first
@@ -11,7 +11,7 @@ class User_Login(db.Model):
     customer_id = db.Column(db.Integer, db.ForeignKey("customer.id"))
     professional_id = db.Column(db.Integer, db.ForeignKey("professional.id"))
     role = db.Column(db.Integer,nullable=False)
-    status = db.Column(db.String,nullable=False)
+    status = db.Column(db.String)
 
 class Customer(db.Model):
     __tablename__ ="customer"
@@ -54,8 +54,8 @@ class Service_request(db.Model):
     __tablename__ ="service_request"
     id = db.Column(db.Integer,primary_key=True)
     status  = db.Column(db.String,default ="PENDING" )
-    date = db.Column(db.DateTime,nullable = False)
-    rating = db.Column(db.Integer,default = 0)
+    date = db.Column(db.DateTime,default= datetime.now(timezone.utc))
+    rating = db.Column(db.Integer)
     remark = db.Column(db.String)
     service_id = db.Column(db.Integer, db.ForeignKey("service.id"),nullable = False)
     customer_id = db.Column(db.Integer, db.ForeignKey("customer.id"),nullable = False)

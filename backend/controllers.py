@@ -18,10 +18,12 @@ def signin():
             return redirect(url_for("admin_dashboard",name=uname))
 
         elif usr and usr.role ==1 and usr.status=="approve":
-            return redirect(url_for("customer_dashboard",name=uname))
+            c_id = usr.customer_id
+            return redirect(url_for("customer_dashboard",id = c_id))
         
         elif usr and usr.role ==2 and usr.status=="approve":
-            return redirect(url_for("professional_dashboard",name=uname))
+            p_id = usr.professional_id
+            return redirect(url_for("professional_dashboard",name=uname,id =p_id))
         
         else:
             return render_template("login.html",msg ="INVALID USER CREDENTIALS")
@@ -88,10 +90,15 @@ def admin_dashboard(name):
     user_logins = get_user_login()
     return render_template("admin_dashboard.html",name=name,services=services,professionals = professionals,user_logins=user_logins)
 
-@app.route("/customer/<name>")
-def customer_dashboard(name):
+
+@app.route("/customer/<id>")
+def customer_dashboard(id):
+    #user_logins = get_user_login()
+    # u = User_Login.query.filter_by(email=name).first()
+    # u_id = u.customer_id
+    customer = get_customer(id)
     services = get_services()
-    return render_template("customer_dashboard.html",name=name,services=services)
+    return render_template("customer_dashboard.html",services=services,customer=customer,id=id)
 
 @app.route("/professional/<name>")
 def professional_dashboard(name):
@@ -122,8 +129,41 @@ def get_professionals():
     professionals = Professional.query.all()
     return professionals
 
+def get_customer(id):
+    customer = Customer.query.filter_by(id=id).first()
+    return customer
+
 def get_user_login():
     user_logins = User_Login.query.all()
     return user_logins
 
+@app.route("/update_professional/<name>",methods=["GET","POST"])
+def approve_professional(name):
+    if request.method == "POST":
+    #user_logins = get_user_login()
+        request_id = request.form.get("id")
+        action = request.form.get("action")
+        u = User_Login.query.filter_by(professional_id=request_id).first()
+        if action =="approve":
+            u.status = "approve"
+            db.session.commit()
+        elif action =="reject":
+            u.status = "reject"
+            db.session.commit()
+
+
+        return redirect(url_for("admin_dashboard",name=name))
+    
+
+@app.route("/service_request/<id>", methods=["GET","POST"])
+def add_service_request(id):
+    if request.method=="POST":
+        c_id = request.form.get("id")
+        s_id = request.form.get("s_id")
+
+        new_service_request = Service_request(customer_id=c_id,service_id=s_id)
+        db.session.add(new_service_request)
+        db.session.commit()
+        
+        return redirect(url_for("customer_dashboard",id =id))
 

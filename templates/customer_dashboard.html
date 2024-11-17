@@ -15,7 +15,11 @@
                             <div class="card-body">
                               <h5 class="card-title">{{service.name}}</h5>
                               <p class="card-text">{{service.description}}</p>
-                              <a href="#" class="btn btn-outline-info">BOOK NOW</a>
+                              <form action="/service_request/<id>" method ="POST">
+                                <input type ="hidden" name ="id" id ="id" value = {{customer.id}}>
+                                <input type ="hidden" name ="s_id" id ="s_id" value = {{service.id}}>
+                                <button type = "submit" class="btn btn-outline-success">BOOK NOW</button>
+                              </form>
                             </div>
                           </div>
                         </div>

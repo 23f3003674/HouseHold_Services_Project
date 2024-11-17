@@ -75,55 +75,49 @@
                     </div>
                     <div class="container text-center">
                       <div class="margin1">
-                        {%if professionals%}
-                          {%for professional in professionals%}
-                          <div class="row">
-                              <div class="col">
-                                {{professional.id}}
-                              </div>
-                              <div class="col">
-                                {{professional.full_name}}
-                              </div>
-                              <div class="col">
-                                {{professional.experience}}
-                              </div>
-                              <div class="col">
-                                {{(professional.service_id)}}
-                              </div>
-                              <div class="col">
-                                <a href="#" class="btn btn-outline-success">APPROVE</a></a><a href="#" class="btn btn-outline-danger">REJECT</a>
-                              </div>
-                          </div>
-                          {%endfor%}
-                        {%else%}
+                        <!--{%if professionals%}-->
+                        {%for ul in user_logins%}
+                          {%if ul.status =='wait' %}
+                          <!--{%for professional in professionals%}-->
+                            {%if ul.professional_id == professional.id %}
+                                <div class="row">
+                                  <!--<div class="container text-center">-->
+                                    <div class="col">
+                                      {{professional.id}}
+                                    </div>
+                                    <div class="col">
+                                      {{professional.full_name}}
+                                    </div>
+                                    <div class="col">
+                                      {{professional.experience}}
+                                    </div>
+                                    <div class="col">
+                                      {%for s in services%}
+                                        {%if s.id == professional.service_id%}
+                                          {{s.name}}
+                                        {%endif%}
+                                      {%endfor%}
+                                    </div>
+                                    <div class="col">
+                                      <form action ="/update_professional/<name>" method ="POST">
+                                        <input type ="hidden" name ="id" id ="id"  value = {{professional.id}}>
+                                        <button type = "submit" name ="action" value="approve" class="btn btn-outline-success">APPROVE</button>
+                                        <button type = "submit" name ="action" value="reject" class="btn btn-outline-danger">REJECT</button>
+                                      </form>
+                                    </div>
+                                  <!--</div>-->
+                                </div>
+                            {%endif%}
+                          <!--{%endfor%}-->
+                          {%endif%}
+                        {%endfor%}
+                        <!--{%else%}
                           <h3 class="center">NO PROFESSIONAL AVAILABLE</h3>
-                        {%endif%}
+                        {%endif%}-->
 
                       </div>
                     </div>
                   </div>
-                  <div class ="margin"><b>
-                    
-                    SERVICE REQUESTS
-                  </b></div>
-                  <div class ="dashboard"> 
-                    <div class="container text-center">
-                      <b><div class="row">
-                        <div class="col">
-                          ID
-                        </div>
-                        <div class="col">
-                          ASSIGNED PROFESSIONAL
-                        </div>
-                        <div class="col">
-                          REQUESTED DATE
-                        </div>
-                        <div class="col">
-                          STATUS
-                        </div>
-                      </div></b>
-                    </div>
-                  </div>
-
+                
                 
 {%endblock%}
