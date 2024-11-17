@@ -17,15 +17,16 @@
                             <a class="nav-link active" aria-current="page" href="/templates/admin_dashboard.html">HOME</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">SEARCH</a>
-                          </li>
-                          <li class="nav-item">
                             <a class="nav-link" href="#">SUMMARY</a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link" href="/login">LOGOUT</a>
                           </li>
                         </ul>
+                        <form class="d-flex" method ="POST" action="/search_ad/{{name}}">
+                          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name ="search_txt" id ="search_txt">
+                          <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
                         <span class="navbar-text">
                           WELCOME {{name}}
                         </span>

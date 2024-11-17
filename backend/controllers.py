@@ -167,3 +167,43 @@ def add_service_request(id):
         
         return redirect(url_for("customer_dashboard",id =id))
 
+@app.route("/search_ad/<name>",methods =["GET","POST"])
+def search_ad(name):
+    if request.method=="POST":
+        search_txt = request.form.get("search_txt")
+        by_customers = search_by_customers(search_txt)
+        by_professionals = search_by_professionals(search_txt)
+        by_services = search_by_services(search_txt)
+        if by_services:
+            return render_template("admin_dashboard.html",name =name,services=by_services)
+        elif by_professionals:
+            return render_template("admin_dashboard.html",name =name,services=by_professionals)
+        elif by_customers:
+            return render_template("admin_dashboard.html",name =name,services=by_customers)
+
+    return redirect(url_for("admin_dashboard",name=name))
+
+@app.route("/search_c/<id>",methods =["GET","POST"])
+def search_c(id):
+    if request.method=="POST":
+        search_txt = request.form.get("search_txt")
+        by_services = search_by_services(search_txt)
+        if by_services:
+            return render_template("customer_dashboard.html",id =id,services=by_services)
+
+    return redirect(url_for("customer_dashboard",id=id))
+
+
+# search functions
+
+def search_by_customers(search_txt):
+    customers = Customer.query.filter(Customer.full_name.ilike(f"%{search_txt}")).all()
+    return customers
+
+def search_by_professionals(search_txt):
+    professionals = Professional.query.filter(Professional.full_name.ilike(f"%{search_txt}")).all()
+    return professionals
+
+def search_by_services(search_txt):
+    services= Service.query.filter(Service.name.ilike(f"%{search_txt}")).all()
+    return services

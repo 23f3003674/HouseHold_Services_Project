@@ -7,24 +7,24 @@
                   </div>
                   <div class="container text-center">
                     {%if services%}
-                    <div class="row">
-                      {%for service in services%}
-                        <div class="col">
-                          <div class="card" style="width: 18rem;">
+                      <div class="row">
+                        {%for service in services%}
+                          <div class="col">
+                            <div class="card" style="width: 18rem;">
                          
-                            <div class="card-body">
-                              <h5 class="card-title">{{service.name}}</h5>
-                              <p class="card-text">{{service.description}}</p>
-                              <form action="/service_request/<id>" method ="POST">
-                                <input type ="hidden" name ="id" id ="id" value = {{customer.id}}>
-                                <input type ="hidden" name ="s_id" id ="s_id" value = {{service.id}}>
-                                <button type = "submit" class="btn btn-outline-success">BOOK NOW</button>
-                              </form>
+                              <div class="card-body">
+                                <h5 class="card-title">{{service.name}}</h5>
+                                <p class="card-text">{{service.description}}</p>
+                                <form action="/service_request/<id>" method ="POST">
+                                  <input type ="hidden" name ="id" id ="id" value = id>
+                                  <input type ="hidden" name ="s_id" id ="s_id" value = {{service.id}}>
+                                  <button type = "submit" class="btn btn-outline-success">BOOK NOW</button>
+                                </form>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      {%endfor%}
-                    </div>
+                        {%endfor%}
+                      </div>
                     {%else%}
                     <h3 class="center">NO SERVICES AVAILABLE</h3>
                     {%endif%}
