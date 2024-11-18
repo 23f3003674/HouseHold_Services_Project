@@ -170,16 +170,19 @@ def add_service_request(id):
 @app.route("/search_ad/<name>",methods =["GET","POST"])
 def search_ad(name):
     if request.method=="POST":
+        professionals = get_professionals()
+        user_logins = get_user_login()
+        services = get_services()
         search_txt = request.form.get("search_txt")
         by_customers = search_by_customers(search_txt)
         by_professionals = search_by_professionals(search_txt)
         by_services = search_by_services(search_txt)
         if by_services:
-            return render_template("admin_dashboard.html",name =name,services=by_services)
+            return render_template("admin_dashboard.html",name =name,services=by_services,professionals=professionals,user_logins=user_logins)
         elif by_professionals:
-            return render_template("admin_dashboard.html",name =name,services=by_professionals)
+            return render_template("admin_dashboard.html",name =name,services=services,professionals1=by_professionals,professionals=professionals,user_logins=user_logins)
         elif by_customers:
-            return render_template("admin_dashboard.html",name =name,services=by_customers)
+            return render_template("admin_dashboard.html",name =name,services=services,customers1=by_customers,professionals=professionals,user_logins=user_logins)
 
     return redirect(url_for("admin_dashboard",name=name))
 
