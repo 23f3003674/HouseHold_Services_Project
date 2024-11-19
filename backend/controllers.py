@@ -88,7 +88,8 @@ def admin_dashboard(name):
     services = get_services()
     professionals = get_professionals()
     user_logins = get_user_login()
-    return render_template("admin_dashboard.html",name=name,services=services,professionals = professionals,user_logins=user_logins)
+    custumers = Customer.query.all()
+    return render_template("admin_dashboard.html",name=name,services=services,professionals = professionals,user_logins=user_logins,customers = custumers)
 
 
 @app.route("/customer/<id>")
@@ -220,3 +221,25 @@ def search_by_professionals(search_txt):
 def search_by_services(search_txt):
     services= Service.query.filter(Service.name.ilike(f"%{search_txt}")).all()
     return services
+
+@app.route("/edit_service/<id>/<name>" ,methods = ["GET","POST"])
+def edit_service(id,name):
+    service = get_service(id)
+    if request.method =="POST":
+
+        sname = request.form.get("name")
+        description = request.form.get("description")
+        base_price = request.form.get("base_price")
+        time_required = request.form.get("time_required")
+        service.name = sname
+        service.description = description
+        service.base_price = base_price
+        service.time_required = time_required
+        db.session.commit()
+        return redirect(url_for("admin_dashboard",name =name))
+    return render_template("edit_service.html",service=service,name=name)
+
+
+def get_service(id):
+    service = Service.query.filter_by(id=id).first()
+    return service

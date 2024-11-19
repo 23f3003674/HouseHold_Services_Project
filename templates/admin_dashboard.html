@@ -80,12 +80,12 @@
                 <h5 class="card-title">{{service.name}}</h5>
                 <p class="card-text">ID {{service.id}}</p>
                 <p>PRICE {{service.base_price}}</p>
-                <form action="/service_request/<id>" method ="POST">
-                  <input type ="hidden" name ="id" id ="id" value = id>
-                  <input type ="hidden" name ="s_id" id ="s_id" value = {{service.id}}>
-                  <button type = "submit" class="btn btn-outline-warning">EDIT</button>
-                  <button type = "submit" class="btn btn-outline-danger">DELETE</button>
-                </form>
+                <div class="mb-3">
+                  <div class ="center">
+                    <a href = "/edit_service/{{service.id}}/{{name}}" type = "button" class="btn btn-outline-warning">EDIT</a>
+                    <a href ="/delete_service/{{service.id}}/{{name}}" type = "button" class="btn btn-outline-danger">DELETE</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -203,7 +203,7 @@
                                       {%endfor%}
                                     </div>
                                     <div class="col">
-                                      <form action ="/update_professional/<name>" method ="POST">
+                                      <form action ="/update_professional/{{name}}" method ="POST">
                                         <input type ="hidden" name ="id" id ="id"  value = {{professional.id}}>
                                         <button type = "submit" name ="action" value="approve" class="btn btn-outline-success">APPROVE</button>
                                         <button type = "submit" name ="action" value="reject" class="btn btn-outline-danger">REJECT</button>

@@ -16,9 +16,9 @@ class User_Login(db.Model):
 class Customer(db.Model):
     __tablename__ ="customer"
     id = db.Column(db.Integer,primary_key=True)
-    full_name = db.Column(db.String,nullable = False)
-    address = db.Column(db.String,nullable = False)
-    pincode = db.Column(db.Integer,nullable = False)
+    full_name = db.Column(db.String)
+    address = db.Column(db.String)
+    pincode = db.Column(db.Integer)
     #user_login_id = db.Column(db.Integer, db.ForeignKey("user_login.id"),nullable = False)
     service_requests = db.relationship("Service_request",cascade="all,delete",backref="customer",lazy = True)
 
@@ -26,10 +26,10 @@ class Customer(db.Model):
 class Professional(db.Model):
     __tablename__ ="professional"
     id = db.Column(db.Integer,primary_key=True)
-    full_name = db.Column(db.String,nullable = False)
-    experience = db.Column(db.Integer,nullable = False)
-    address = db.Column(db.String,nullable = False)
-    pincode = db.Column(db.Integer,nullable = False)
+    full_name = db.Column(db.String)
+    experience = db.Column(db.Integer)
+    address = db.Column(db.String)
+    pincode = db.Column(db.Integer)
     #user_login_id = db.Column(db.Integer, db.ForeignKey("user_login.id"),nullable = False)
     service_requests = db.relationship("Service_request",cascade="all,delete",backref="professional",lazy = True)
     service_id = db.Column(db.Integer, db.ForeignKey("service.id"),nullable = False)
@@ -42,10 +42,10 @@ class Professional(db.Model):
 class Service(db.Model):
     __tablename__ ="service"
     id = db.Column(db.Integer,primary_key=True)
-    name = db.Column(db.String,nullable = False)
-    description = db.Column(db.String,nullable = False)
-    base_price = db.Column(db.Float,nullable = False)
-    time_required = db.Column(db.Integer,nullable = False)
+    name = db.Column(db.String)
+    description = db.Column(db.String)
+    base_price = db.Column(db.Float)
+    time_required = db.Column(db.Integer)
     service_requests = db.relationship("Service_request",cascade="all,delete",backref="service",lazy = True)
     professionals = db.relationship("Professional",cascade="all,delete",backref="service",lazy = True) 
 

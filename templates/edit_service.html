@@ -1,0 +1,35 @@
+{%extends "admin_layout.html"%}
+{%block content%}
+        <div><h3>hello</h3></div>
+            {%if service%}
+                <div class ="center"><h3>EDIT SERVICE</h3></div>
+                <form action ="/edit_service/{{service.id}}/{{name}}" method ="POST">
+                    <div class = "input_form1">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">SERVICE NAME</label>
+                            <input type="text" class="form-control" name ="name" id="name" value = "{{service.name}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">DESCRIPTION</label>
+                            <input type="text" class="form-control" name ="description" id="description" value = "{{service.description}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="base_price" class="form-label">BASE PRICE</label>
+                            <input type="number" class="form-control" name ="base_price" id="base_price" value = "{{service.base_price}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="time_required" class="form-label">TIME REQUIRED</label>
+                            <input type="number" class="form-control" name ="time_required" id="time_required" value = "{{service.time_required}}">
+                        </div>
+                        <div class="mb-3">
+                            <div class ="center"><button type="submit" class="btn btn-primary">EDIT</button>
+                            <a href="/delete_service/{{service.id}}/{{name}}" type="button" class="btn btn-danger">DELETE</a></div>
+                            <a href="/admin/{{name}}" type="button" class="btn btn-primary">CLOSE</a></div>
+                        
+                        </div>
+                    
+                      
+                    </div>
+                </form>
+            {%endif%}
+{%endblock%}
