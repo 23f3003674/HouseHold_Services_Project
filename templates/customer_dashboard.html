@@ -15,8 +15,8 @@
                               <div class="card-body">
                                 <h5 class="card-title">{{service.name}}</h5>
                                 <p class="card-text">{{service.description}}</p>
-                                <form action="/service_request/<id>" method ="POST">
-                                  <input type ="hidden" name ="id" id ="id" value = id>
+                                <form action="/service_request/{{id}}" method ="POST">
+                                  <input type ="hidden" name ="id" id ="id" value = {{id}}>
                                   <input type ="hidden" name ="s_id" id ="s_id" value = {{service.id}}>
                                   <button type = "submit" class="btn btn-outline-success">BOOK NOW</button>
                                 </form>
@@ -29,6 +29,9 @@
                     <h3 class="center">NO SERVICES AVAILABLE</h3>
                     {%endif%}
                   </div>
+                  
+                  
+                {%if service_requests%}  
                   <div class ="margin">
                     SERVICE HISTORY
                   </div>
@@ -44,6 +47,7 @@
                         <div class="col">
                           PROFESSIONAL NAME
                         </div>
+                        
                         <div class="col">
                           PHONE NO.
                         </div>
@@ -52,36 +56,37 @@
                         </div>
                       </div>
                     </div>
-                    <!--<div class="container text-center">
+                    <div class="container text-center">
                       <div class="margin1">
-                        {%if service_requests%}
-                          {%for service_request in service_requests%}
-                          <div class="row">
-                              <div class="col">
-                                {{service_request.id}}
+                        {%for service_request in service_requests%}
+                          {%for s in services1%}
+                            {%if s.id == service_request.service_id%}
+                              <div class="row">
+                                <div class="col">
+                                  {{service_request.id}}
+                                </div>
+                                <div class="col">
+                                  {{s.name}}
+                                </div>
+                                <div class="col">
+                                  
+                                </div>
+                                <div class="col">
+                                  {{service_request.status}}
+                                </div>
+                                <div class="col">
+                                  <a href="#" class="btn btn-outline-success">CLOSE IT</a>
+                                </div>
                               </div>
-                              <div class="col">
-                                {{service.name}}
-                              </div>
-                              <div class="col">
-                                {{service.base_price}}
-                              </div>
-                              <div class="col">
-                                STATUS
-                              </div>
-                              <div class="col">
-                                <a href="#" class="btn btn-outline-success">CLOSE IT</a>
-                              </div>
-                          </div>
+                            {%endif%}
                           {%endfor%}
-                        {%else%}
-                          <h3 class="center">NO SERVICES AVAILABLE</h3>
-                        {%endif%}
-
-                      </div>-->
-                  </div>
+                        {%endfor%}
+                          
+                      </div>
+                    </div>
                   
                   </div>
+                {%endif%}
 
                 
 {%endblock%}
