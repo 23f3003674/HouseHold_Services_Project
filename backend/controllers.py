@@ -23,7 +23,7 @@ def signin():
         
         elif usr and usr.role ==2 and usr.status=="approve":
             p_id = usr.professional_id
-            return redirect(url_for("professional_dashboard",name=uname,id =p_id))
+            return redirect(url_for("professional_dashboard",id =p_id))
         
         else:
             return render_template("login.html",msg ="INVALID USER CREDENTIALS")
@@ -68,7 +68,8 @@ def professional_signup():
         experience= request.form.get("experience")
         service_name = request.form.get("service_name")
 
-        service =Service.query.filter_by(name=service_name).first()
+        service = Service.query.filter_by(name =service_name).first()
+
         pservice_id = service.id
         new_usr1= Professional(full_name=full_name,address=address,pincode=pincode,experience=experience,service_id=pservice_id)
         db.session.add(new_usr1)
@@ -103,9 +104,10 @@ def customer_dashboard(id):
     service_requests = Service_request().query.filter_by(customer_id=id).all()
     return render_template("customer_dashboard.html",services=services,customer=customer,id=id,service_requests=service_requests,services1=services1)
 
-@app.route("/professional/<name>")
-def professional_dashboard(name):
-    return render_template("professional_dashboard.html",name=name)
+@app.route("/professional/<id>")
+def professional_dashboard(id):
+    professional = Professional.query.filter_by(id=id).first()
+    return render_template("professional_dashboard.html",id=id,professional=professional)
 
 
 
@@ -243,3 +245,48 @@ def edit_service(id,name):
 def get_service(id):
     service = Service.query.filter_by(id=id).first()
     return service
+
+@app.route("/delete_service/<id>/<name>" ,methods = ["GET","POST"])
+def delete_service(id,name):
+    pro = Professional.query.filter_by(service_id=id).all()
+    for p in pro:
+        pro_id = p.id
+        Ul = User_Login.query.filter_by(professional_id=pro_id).first()
+        Ul.status ="reject"
+
+    service = get_service(id)
+    db.session.delete(service)
+    db.session.commit()
+    return redirect(url_for("admin_dashboard",name =name))
+
+@app.route("/customer_profile/<id>" ,methods = ["GET","POST"])
+def customer_profile(id):
+    customer = get_customer(id)
+    if request.method =="POST":
+
+        cname = request.form.get("full_name")
+        address = request.form.get("address")
+        pincode = request.form.get("pincode")
+        customer.full_name = cname
+        customer.address = address
+        customer.pincode = pincode
+        db.session.commit()
+        return redirect(url_for("customer_dashboard",id=id))
+    return render_template("customer_profile.html",customer =customer,id=id)
+
+@app.route("/professional_profile/<id>",methods = ["GET","POST"])
+def professional_profile(id):
+    professional = Professional.query.filter_by(id=id).first()
+    if request.method =="POST":
+
+        pname = request.form.get("full_name")
+        address = request.form.get("address")
+        pincode = request.form.get("pincode")
+        experience = request.form.get("experience")
+        professional.full_name = pname
+        professional.address = address
+        professional.pincode = pincode
+        professional.experience = experience
+        db.session.commit()
+        return redirect(url_for("professional_dashboard",id=id))
+    return render_template("professional_profile.html",professional =professional,id=id)

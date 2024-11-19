@@ -1,0 +1,29 @@
+{%extends "customer_layout.html"%}
+{%block content%}
+            {%if customer%}
+                <div class ="center"><h3>EDIT SERVICE</h3></div>
+                <form action ="/customer_profile/{{id}}" method ="POST">
+                    <div class = "input_form1">
+                        <div class="mb-3">
+                            <label for="full_name" class="form-label">FULL NAME</label>
+                            <input type="text" class="form-control" name ="full_name" id="full_name" value = "{{customer.full_name}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">ADDRESS</label>
+                            <input type="text" class="form-control" name ="address" id="address" value = "{{customer.address}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pincode" class="form-label">PINCODE</label>
+                            <input type="number" class="form-control" name ="pincode" id="pincode" value = "{{customer.pincode}}">
+                        </div>
+                        <div class="mb-3">
+                            <div class ="center"><button type="submit" class="btn btn-primary">EDIT</button>
+                            <a href="/customer/{{id}}" type="button" class="btn btn-primary">CLOSE</a></div>
+                        
+                        </div>
+                    
+                      
+                    </div>
+                </form>
+            {%endif%}
+{%endblock%}

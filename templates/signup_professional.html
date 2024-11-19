@@ -28,7 +28,7 @@
                         <label for="service_name">CHOOSE A SERVICE</label>
                         <select name="service_name" id ="service_name">
                           {%for service in services%}
-                            <option value={{service.name}}>{{service.name}}</option>
+                            <option value="{{service.name}}">{{service.name}}</option>
                           {%endfor%}
                         </select>
                       </div>

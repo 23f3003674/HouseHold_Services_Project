@@ -1,6 +1,5 @@
 {%extends "admin_layout.html"%}
 {%block content%}
-        <div><h3>hello</h3></div>
             {%if service%}
                 <div class ="center"><h3>EDIT SERVICE</h3></div>
                 <form action ="/edit_service/{{service.id}}/{{name}}" method ="POST">
@@ -22,7 +21,7 @@
                             <input type="number" class="form-control" name ="time_required" id="time_required" value = "{{service.time_required}}">
                         </div>
                         <div class="mb-3">
-                            <div class ="center"><button type="submit" class="btn btn-primary">EDIT</button>
+                            <div class ="center"><button type="submit" class="btn btn-primary">SAVE</button>
                             <a href="/delete_service/{{service.id}}/{{name}}" type="button" class="btn btn-danger">DELETE</a></div>
                             <a href="/admin/{{name}}" type="button" class="btn btn-primary">CLOSE</a></div>
                         

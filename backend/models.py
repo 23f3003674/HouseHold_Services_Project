@@ -12,6 +12,8 @@ class User_Login(db.Model):
     professional_id = db.Column(db.Integer, db.ForeignKey("professional.id"))
     role = db.Column(db.Integer,nullable=False)
     status = db.Column(db.String)
+    professional = db.relationship("Professional",cascade="all,delete",backref="user_login",lazy = True)
+    customer = db.relationship("Customer",cascade="all,delete",backref="user_login",lazy = True)
 
 class Customer(db.Model):
     __tablename__ ="customer"
