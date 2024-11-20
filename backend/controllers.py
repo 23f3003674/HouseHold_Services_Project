@@ -107,7 +107,11 @@ def customer_dashboard(id):
 @app.route("/professional/<id>")
 def professional_dashboard(id):
     professional = Professional.query.filter_by(id=id).first()
-    return render_template("professional_dashboard.html",id=id,professional=professional)
+    service_id = professional.service_id
+    service = Service.query.filter_by(id=service_id).first()
+    service_request = Service_request.query.filter_by(service_id=service_id).all()
+    customers = Customer.query.all()
+    return render_template("professional_dashboard.html",id=id,professional=professional,service =service,service_request=service_request,customers=customers)
 
 
 

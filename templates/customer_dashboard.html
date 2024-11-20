@@ -5,8 +5,14 @@
                     <div class ="right"><a href ='/customer_profile/{{id}}'>PROFILE</a></div>
                     
                   </div>
-                  <div class="container text-center">
-                    {%if services%}
+                {%if services%}
+                <div class ="margin"><b>
+                  SERVICES AVAILABLE
+                </b></div>
+                  <div class ="dashboard">
+                   
+                    <div class="container text-center">
+
                       <div class="row">
                         {%for service in services%}
                           <div class="col">
@@ -25,10 +31,12 @@
                           </div>
                         {%endfor%}
                       </div>
-                    {%else%}
-                    <h3 class="center">NO SERVICES AVAILABLE</h3>
-                    {%endif%}
+                    </div>
                   </div>
+                {%else%}
+                  <h3 class="center">NO SERVICES AVAILABLE</h3>
+                {%endif%}
+
                   
                   
                 {%if service_requests%}  
