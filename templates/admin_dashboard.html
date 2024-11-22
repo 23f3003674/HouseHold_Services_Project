@@ -5,33 +5,41 @@
   <div class ="margin"><b>
     professionals
   </b></div>
-  <div class ="dashboard">
-    <div class="container text-center">
-      <div class="row">
+  
         {%for p in professionals1%}
-          <div class="col">
-            <div class="card" style="width: 18rem;">
+          {%for ul in user_logins %}
+            {%if ul.professional_id == p.id and ul.status != "reject" %}
+            <div class ="dashboard">
+              <div class="container text-center">
+                <div class="row">
+                  <div class="col">
+                    <div class="card" style="width: 18rem;">
    
-              <div class="card-body">
-                <h5 class="card-title">{{p.full_name}}</h5>
-                <p class="card-text">ID {{p.id}}</p>
-                <p class="card-text">EXPERIENCE {{p.experience}} YEARS</p>
-                <p>{%for s in services%}
-                  {%if s.id == p.service_id%}
-                    {{s.name}}
-                  {%endif%}
-                {%endfor%}</p>
-                <form  method ="POST">
-                  
-                  <button type = "submit" class="btn btn-outline-danger">BLOCK</button>
-                </form>
+                      <div class="card-body">
+                        <h5 class="card-title">{{p.full_name}}</h5>
+                        <p class="card-text">ID {{p.id}}</p>
+                        <p class="card-text">EXPERIENCE {{p.experience}} YEARS</p>
+                        <p>{%for s in services%}
+                          {%if s.id == p.service_id%}
+                            {{s.name}}
+                          {%endif%}
+                        {%endfor%}</p>
+
+                          <form action ="/block_professional/{{name}}" method ="POST">
+                            <input type ="hidden" name ="id" id ="id"  value = {{p.id}}>
+                            <button type = "submit" class="btn btn-outline-danger">BLOCK</button>
+                          </form>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+            {%endif%}
+          {%endfor%}
         {%endfor%}
-      </div>
-    </div>
-  </div>
+
 {%endif%}
 
 
@@ -40,28 +48,36 @@
   <div class ="margin"><b>
     CUSTOMERS
   </b></div>
-  <div class ="dashboard">
-    <div class="container text-center">
-      <div class="row">
+ 
         {%for c in customers1%}
-          <div class="col">
-            <div class="card" style="width: 18rem;">
+          {%for ul in user_logins %}
+            {%if ul.customer_id == c.id and ul.status != "reject" %}
+            <div class ="dashboard">
+              <div class="container text-center">
+                <div class="row">
+                  <div class="col">
+                    <div class="card" style="width: 18rem;">
    
-              <div class="card-body">
-                <h5 class="card-title">{{c.full_name}}</h5>
-                <p class="card-text">ID {{c.id}}</p>
-                <p class="card-text">PINCODE {{c.pincode}}</p>
-                <form  method ="POST">
-                  
-                  <button type = "submit" class="btn btn-outline-danger">DELETE</button>
-                </form>
+                      <div class="card-body">
+                        <h5 class="card-title">{{c.full_name}}</h5>
+                        <p class="card-text">ID {{c.id}}</p>
+                        <p class="card-text">PINCODE {{c.pincode}}</p>
+
+                          <form action ="/block_customer/{{name}}" method ="POST">
+                            <input type ="hidden" name ="id" id ="id"  value = {{c.id}}>
+                            <button type = "submit" class="btn btn-outline-danger">BLOCK</button>
+                          </form>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+            {%endif%}
+          {%endfor%}
         {%endfor%}
-      </div>
-    </div>
-  </div>
+
 {%endif%}
 
 
@@ -273,9 +289,9 @@
                                       {%endfor%}
                                     </div>
                                     <div class="col">
-                                      <form method ="POST">
+                                      <form action ="/block_professional/{{name}}" method ="POST">
                                         <input type ="hidden" name ="id" id ="id"  value = {{professional.id}}>
-                                        <button type = "submit" name ="action" value="reject" class="btn btn-outline-danger">BLOCK</button>
+                                        <button type = "submit" class="btn btn-outline-danger">BLOCK</button>
                                       </form>
                                     </div>
                                   <!--</div>-->
@@ -322,6 +338,9 @@
                     <div class="margin1">
                       
                         {%for c in customers%}
+                          {%for ul in user_logins %}
+                            {%if ul.customer_id == c.id and ul.status != "reject" %}
+                        
                           
                               <div class="row">
                                 <!--<div class="container text-center">-->
@@ -336,11 +355,76 @@
                                   </div>
                                   
                                   <div class="col">
-                                    <form method ="POST">
+                                    <form action ="/block_customer/{{name}}" method ="POST">
                                       <input type ="hidden" name ="id" id ="id"  value = {{c.id}}>
-                                      <button type = "submit" name ="action" value="reject" class="btn btn-outline-danger">BLOCK</button>
+                                      <button type = "submit" class="btn btn-outline-danger">BLOCK</button>
                                     </form>
                                   </div>
+                                <!--</div>-->
+                              </div>
+                            {%endif%}
+                          {%endfor%}  
+                          
+                        {%endfor%}
+                      
+
+                    </div>
+                  </div>
+                </div>
+              {%endif%}
+
+              {%if service_requests%}
+                <div class = "margin"><b>
+                  SERVICE REQUESTS
+                </b></div>
+                <div class ="dashboard">
+                  <div class="container text-center">
+                    <b><div class="row">
+                      <div class="col">
+                       ID
+                      </div>
+                      <div class="col">
+                        SERVICE NAME
+                      </div>
+                      <div class="col">
+                        CUSTOMER ID
+                      </div>
+                      <div class="col">
+                        PROFESSIONAL ID
+                      </div>
+                      <div class="col">
+                        STATUS
+                      </div>
+                    </div></b>
+                  </div>
+                  <div class="container text-center">
+                    <div class="margin1">
+                      
+                        {%for sr in service_requests%}
+                          
+                              <div class="row">
+                                <!--<div class="container text-center">-->
+                                  <div class="col">
+                                    {{sr.id}}
+                                  </div>
+                                  <div class="col">
+                                    {%for s in services%}
+                                      {%if sr.service_id == s.id%}
+                                        {{s.name}}
+                                      {%endif%}
+                                    {%endfor%} 
+                                  </div>
+                                  <div class="col">
+                                    {{sr.customer_id}}
+                                  </div>
+                                  <div class="col">
+                                    {{sr.professtional_id}}
+                                  </div>
+                                  <div class="col">
+                                    {{sr.status}}
+                                  </div>
+
+                              
                                 <!--</div>-->
                               </div>
                           
@@ -351,6 +435,8 @@
                   </div>
                 </div>
               {%endif%}
+
+
 
                   
 {%endblock%}

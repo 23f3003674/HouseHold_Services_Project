@@ -78,7 +78,7 @@ def professional_signup():
         new_usr = User_Login(email=uname,password=pwd,role=2,professional_id=new_usr1_id,status="wait")
         db.session.add(new_usr)
         db.session.commit()
-        return render_template("login.html")
+        return render_template("login.html",msg="REGISTERED SUCCESSFULLY!, WAIT FOR ADMIN APPROVAL!!")
 
     return render_template("signup_professional.html",services=services)
 
@@ -90,7 +90,8 @@ def admin_dashboard(name):
     professionals = get_professionals()
     user_logins = get_user_login()
     custumers = Customer.query.all()
-    return render_template("admin_dashboard.html",name=name,services=services,professionals = professionals,user_logins=user_logins,customers = custumers)
+    service_requests = Service_request.query.all()
+    return render_template("admin_dashboard.html",name=name,services=services,professionals = professionals,user_logins=user_logins,customers = custumers,service_requests=service_requests)
 
 
 @app.route("/customer/<id>")
@@ -191,12 +192,13 @@ def search_ad(name):
         by_professionals = search_by_professionals(search_txt)
         by_services = search_by_services(search_txt)
         customers = Customer.query.all()
+        service_requests = Service_request.query.all()
         if by_services:
-            return render_template("admin_dashboard.html",name =name,services=by_services,professionals=professionals,user_logins=user_logins,customers=customers)
+            return render_template("admin_dashboard.html",name =name,services=by_services,professionals=professionals,user_logins=user_logins,customers=customers,service_requests=service_requests)
         elif by_professionals:
-            return render_template("admin_dashboard.html",name =name,services=services,professionals1=by_professionals,professionals=professionals,user_logins=user_logins,customers=customers)
+            return render_template("admin_dashboard.html",name =name,services=services,professionals1=by_professionals,professionals=professionals,user_logins=user_logins,customers=customers,service_requests=service_requests)
         elif by_customers:
-            return render_template("admin_dashboard.html",name =name,services=services,customers1=by_customers,professionals=professionals,user_logins=user_logins,customers=customers)
+            return render_template("admin_dashboard.html",name =name,services=services,customers1=by_customers,professionals=professionals,user_logins=user_logins,customers=customers,service_requests=service_requests)
 
     return redirect(url_for("admin_dashboard",name=name))
 
@@ -294,3 +296,38 @@ def professional_profile(id):
         db.session.commit()
         return redirect(url_for("professional_dashboard",id=id))
     return render_template("professional_profile.html",professional =professional,id=id)
+
+
+@app.route("/accept_service/<id>",methods=["GET","POST"])
+def accept_service(id):
+    if request.method == "POST":
+    #user_logins = get_user_login()
+        p_id = request.form.get("id")
+        service_request_id = request.form.get("service_request_id")
+        service_request = Service_request.query.filter_by(id=service_request_id).first()
+        service_request.professtional_id = p_id
+        service_request.status = "ACCEPTED"
+        db.session.commit()
+        return redirect(url_for("professional_dashboard",id=id))
+    
+
+@app.route("/block_professional/<name>", methods =["POST","GET"])
+def block_professional(name):
+    if request.method == "POST":
+        user_id = request.form.get("id")
+        p = User_Login.query.filter_by(professional_id=user_id).first()
+        if p:
+            p.status = "reject"
+            db.session.commit()
+            return redirect(url_for("admin_dashboard",name =name))
+        
+
+@app.route("/block_customer/<name>", methods =["POST","GET"])
+def block_customer(name):
+    if request.method == "POST":
+        user_id = request.form.get("id")
+        c = User_Login.query.filter_by(customer_id =user_id).first()
+        if c :
+            c.status = "reject"
+            db.session.commit()
+            return redirect(url_for("admin_dashboard",name =name))

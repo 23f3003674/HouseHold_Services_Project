@@ -5,10 +5,11 @@
   <div class ="right"><a href ='/professional_profile/{{id}}'>PROFILE</a></div>
   
 </div>
+
                 {%if service_request %}
               
                   <div class ="margin"><b>
-                    TODAY SERVICES
+                    TODAY {{service.name}} SERVICES
                   </b></div>
                   <div class ="dashboard"> 
                     <div class="container text-center">
@@ -26,7 +27,7 @@
                           STATUS
                         </div>
                         <div class="col">
-                            ACTION
+                          ACTION
                         </div>
                       </div>
                     </div>
@@ -34,7 +35,7 @@
                       <div class="margin1">
                         {%for sr in service_request %}
                           {%for c in customers%}
-                            {%if c.id == sr.customer_id%}
+                            {%if c.id == sr.customer_id and sr.status == "PENDING"%}
                               <div class="row">
                                 <div class="col">
                                   {{sr.id}}
@@ -49,7 +50,11 @@
                                   {{sr.status}}
                                 </div>
                                 <div class="col">
-                                  <a href="#" class="btn btn-outline-success">ACCEPT</a>
+                                  <form action ="/accept_service/{{id}}" method ="POST">
+                                    <input type ="hidden" name ="service_request_id" id ="service_request_id"  value = {{sr.id}}>
+                                    <input type ="hidden" name ="id" id ="id"  value = {{id}}>
+                                    <button type = "submit" name ="accept" class="btn btn-outline-success">ACCEPT</button>
+                                  </form>
                                 </div>
                               </div>
                             {%endif%}
@@ -60,9 +65,9 @@
                     </div>
                   </div>
                   
-                  <div class = "margin">
-                    CLOSED SERVICES
-                  </div>
+                  <div class = "margin"><b>
+                    SERVICES HISTORY
+                  </b></div>
                   <div class ="dashboard">
                     <div class="container text-center">
                       <div class="row">
@@ -72,18 +77,47 @@
                         <div class="col">
                           CUSTOMER NAME
                         </div>
-                        <div class="col">
-                          CONTACT NUMBER
-                        </div>
+                        
                         <div class="col">
                           PIN CODE
                         </div>
                         <div class="col">
-                          DATE
+                          STATUS
                         </div>
                         <div class="col">
-                            RATING
+                          RATING
                         </div>
+                      </div>
+                    </div>
+                    <div class="container text-center">
+                      <div class="margin1">
+                        {%for sr in service_request %}
+                          {%if sr.professtional_id == professional.id %}
+                            {%for c in customers%}
+                              {%if c.id == sr.customer_id and sr.status != "PENDING"%}
+                                <div class="row">
+                                  <div class="col">
+                                    {{sr.id}}
+                                  </div>
+                                  <div class="col">
+                                    {{c.full_name}}
+                                  </div>
+                                  <div class="col">
+                                    {{c.pincode}}
+                                  </div>
+                                  <div class="col">
+                                    {{sr.status}}
+                                  </div>
+                                  <div class="col">
+                                    {{sr.rating}}
+                                  </div>
+                                
+                                </div>
+                              {%endif%}
+                            {%endfor%}
+                          {%endif%}
+                        {%endfor%}
+                          
                       </div>
                     </div>
                   </div>
