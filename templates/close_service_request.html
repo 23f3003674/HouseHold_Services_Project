@@ -1,0 +1,45 @@
+{%extends "customer_layout.html"%}
+{%block content%}
+                <div class ="center"><h3>CLOSE SERVICE</h3></div>
+                <form action ="/close_service_request/{{id}}/{{service_request_id}}" method ="POST">
+                    <div class = "input_form1">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">SERVICE NAME</label>
+                            <input type="text" class="form-control" name ="name" id="name" value="{{service.name}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">SERVICE DESCRIPTION</label>
+                            <input type="text" class="form-control" name ="description" id="description" value="{{service.description}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="professional_id" class="form-label">PROFESSIONAL ID</label>
+                            <input type="number" class="form-control" name ="professional_id" id="professional_id" value="{{professional.id}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="professional_full_name" class="form-label">PROFESSIONAL NAME</label>
+                            <input type="text" class="form-control" name ="professional_full_name" id="professional_full_name" value ="{{professional.full_name}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="service_request_date" class="form-label">DATE</label>
+                            <input type="datetime" class="form-control" name ="service_request_date" id="service_request_date" value ="{{service_request.date}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="service_rating" class="form-label">RATING</label>
+                            <input type="number" class="form-control" name ="service_rating" id="service_rating" placeholder="1-5">
+                        </div>
+                        <div class="mb-3">
+                            <label for="service_remark" class="form-label">REMARKS</label>
+                            <input type="text" class="form-control" name ="service_remark" id="service_remark" placeholder="TELL US ABOUT YOUR EXPERIENCE">
+                        </div>
+
+                        <div class="mb-3">
+                            <div class ="center"><button type="submit" class="btn btn-primary">SUBMIT</button>
+                    
+                            <a href="/customer/{{id}}" type="button" class="btn btn-primary">CANCEL</a></div>
+                        
+                        </div>
+                    
+                      
+                    </div>
+                </form>
+{%endblock%}

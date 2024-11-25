@@ -173,9 +173,11 @@ def add_service_request(id):
     if request.method=="POST":
         c_id = request.form.get("id")
         s_id = request.form.get("s_id")
+        dt_time_now = datetime.today().strftime('%Y-%m-%dT%H:%M')
+        dt_time_now = datetime.strptime(dt_time_now,"%Y-%m-%dT%H:%M")
 
 
-        new_service_request = Service_request(customer_id=c_id,service_id=s_id)
+        new_service_request = Service_request(customer_id=c_id,service_id=s_id,date=dt_time_now)
         db.session.add(new_service_request)
         db.session.commit()
         
@@ -207,11 +209,12 @@ def search_c(id):
     # customer = get_customer(id)
     services1 = get_services()
     service_requests = Service_request().query.filter_by(customer_id=id).all()
+    customer=Customer.query.filter_by(id=id).first()
     if request.method=="POST":
         search_txt = request.form.get("search_txt")
         by_services = search_by_services(search_txt)
         if by_services:
-            return render_template("customer_dashboard.html",id =id,services=by_services,service_requests=service_requests,services1=services1)
+            return render_template("customer_dashboard.html",id =id,services=by_services,customer=customer,service_requests=service_requests,services1=services1)
 
     return redirect(url_for("customer_dashboard",id=id))
 
@@ -316,8 +319,14 @@ def block_professional(name):
     if request.method == "POST":
         user_id = request.form.get("id")
         p = User_Login.query.filter_by(professional_id=user_id).first()
+        service_requests = Service_request.query.filter_by(professtional_id=user_id).all()
         if p:
             p.status = "reject"
+            for sr in service_requests:
+                if sr.status != "COMPLETED":
+                    sr.professtional_id = None
+                    sr.status = "PENDING"
+
             db.session.commit()
             return redirect(url_for("admin_dashboard",name =name))
         
@@ -327,7 +336,48 @@ def block_customer(name):
     if request.method == "POST":
         user_id = request.form.get("id")
         c = User_Login.query.filter_by(customer_id =user_id).first()
+        service_requests = Service_request.query.filter_by(customer_id=user_id).all()
         if c :
             c.status = "reject"
+            for sr in service_requests:
+                db.session.delete(sr)
+
             db.session.commit()
             return redirect(url_for("admin_dashboard",name =name))
+
+
+@app.route("/close_service_request/<id>/<service_request_id>",methods = ["GET","POST"])
+def close_service_request(id,service_request_id):
+    service_request = Service_request.query.filter_by(id=service_request_id).first()
+    professtional_id = service_request.professtional_id
+    professional = Professional.query.filter_by(id=professtional_id).first()
+    service_id = service_request.service_id
+    service =Service.query.filter_by(id=service_id).first()
+    customer = get_customer(id)
+
+    if request.method == "POST":
+        rating = request.form.get("service_rating")
+        remark = request.form.get("service_remark")
+        service_request.rating = rating
+        service_request.remark = remark
+        service_request.status="COMPLETED"
+        db.session.commit()
+        return redirect(url_for("customer_dashboard",id=id))
+    return render_template("close_service_request.html",professional=professional,id=id,service_request=service_request,service=service,customer=customer,service_request_id=service_request_id)
+
+@app.route("/edit_service_request/<id>/<service_request_id>",methods = ["GET","POST"])
+def edit_service_request(id,service_request_id):
+    service_request = Service_request.query.filter_by(id=service_request_id).first()
+    service_id = service_request.service_id
+    service =Service.query.filter_by(id=service_id).first()
+    customer = get_customer(id)
+    #dt_time_now = datetime.today().strftime('%Y-%m-%d')
+    
+
+    if request.method == "POST":
+        service_request_date = request.form.get("service_request_date")
+        service_request_udate = datetime.strptime(service_request_date,"%Y-%m-%dT%H:%M")
+        service_request.date = service_request_udate
+        db.session.commit()
+        return redirect(url_for("customer_dashboard",id=id))
+    return render_template("edit_service_request.html",id=id,service_request=service_request,service=service,customer=customer,service_request_id=service_request_id)

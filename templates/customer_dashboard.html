@@ -21,6 +21,7 @@
                               <div class="card-body">
                                 <h5 class="card-title">{{service.name}}</h5>
                                 <p class="card-text">{{service.description}}</p>
+                                <p class="card-text">PRICE {{service.base_price}}</p>
                                 <form action="/service_request/{{id}}" method ="POST">
                                   <input type ="hidden" name ="id" id ="id" value = {{id}}>
                                   <input type ="hidden" name ="s_id" id ="s_id" value = {{service.id}}>
@@ -83,7 +84,12 @@
                                   {{service_request.status}}
                                 </div>
                                 <div class="col">
-                                  <a href="#" class="btn btn-outline-success">CLOSE IT</a>
+                                  {%if service_request.status != "COMPLETED" %}
+                                    <a href="/close_service_request/{{id}}/{{service_request.id}}" class="btn btn-outline-success">CLOSE IT</a>
+                                    <a href="/edit_service_request/{{id}}/{{service_request.id}}" class="btn btn-outline-warning">EDIT</a>
+                                  {%else%}
+                                    CLOSED
+                                  {%endif%}
                                 </div>
                               </div>
                             {%endif%}

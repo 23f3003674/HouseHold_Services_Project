@@ -56,7 +56,7 @@ class Service_request(db.Model):
     __tablename__ ="service_request"
     id = db.Column(db.Integer,primary_key=True)
     status  = db.Column(db.String,default ="PENDING" )
-    date = db.Column(db.DateTime,default= datetime.now(timezone.utc))
+    date = db.Column(db.DateTime)
     rating = db.Column(db.Integer)
     remark = db.Column(db.String)
     service_id = db.Column(db.Integer, db.ForeignKey("service.id"),nullable = False)
