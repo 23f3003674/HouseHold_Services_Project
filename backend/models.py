@@ -50,6 +50,7 @@ class Service(db.Model):
     time_required = db.Column(db.Integer)
     service_requests = db.relationship("Service_request",cascade="all,delete",backref="service",lazy = True)
     professionals = db.relationship("Professional",cascade="all,delete",backref="service",lazy = True) 
+    service_pic_url = db.Column(db.String,nullable=True,default="None")
 
 
 class Service_request(db.Model):
