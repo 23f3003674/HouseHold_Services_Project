@@ -402,11 +402,86 @@ def get_services_summary():
     plt.xlabel("SERVICES")
     plt.ylabel("PRICE")
     return plt
+
+def get_services_request_summary():
+    Service_requests = Service_request.query.all()
+    summary={
+        "PENDING" : 0,
+        "ACCEPTED" : 0,
+        "COMPLETED" : 0
+    }
+  
+    for s in Service_requests:
+        if s.status in summary:
+            summary[s.status] += 1
+    x_name = list(summary.keys())
+    y_count=list(summary.values())
+    plt.bar(x_name,y_count,color="blue",width=0.4)
+    plt.title("SERVICE_REQUEST_STATUS")
+    plt.xlabel("STATUS")
+    plt.ylabel("NUMBER")
+    return plt
+
+# def get_ad_professional_summary():
+#     Service_requests = Service_request.query.all()
+#     professional_rating={}
+#     for s in Service_requests:
+#         if s.professtional_id not in professional_rating:
+#             professional_rating[s.professtional_id] = {'total_rating' : 0 , 'count' :0}
+#         professional_rating[s.professtional_id]['total_rating'] += s.rating
+#         professional_rating[s.professtional_id]['count'] += 1
+
+#     average = {}
+#     for professtional_id , data in professional_rating.items():
+#         average[professtional_id] = data['total_rating']/data['count']
+
+#     x_name = list(average.keys())
+#     y_count=list(average.values())
+#     plt.bar(x_name,y_count,color="blue",width=0.4)
+#     plt.title("PROFESSIONAL_RATING")
+#     plt.xlabel("PROFESSIONAL_ID")
+#     plt.ylabel("RATING")
+#     return plt
+
 # summaries
 
-@app.route("/admin_summary/<name>")
-def admin_summary(name):
+@app.route("/admin_summary")
+def admin_summary():
     plot=get_services_summary()
     plot.savefig("./static/styles/images/service_summary.jpeg")
     plot.clf()
-    return render_template("admin_summary.html",name=name)
+    plot1=get_services_request_summary()
+    plot1.savefig("./static/styles/images/service_request_summary.jpeg")
+    plot1.clf()
+    # plot2 = get_ad_professional_summary()
+    # plot2.savefig("./static/styles/images/professional_rating_summary.jpeg")
+    # plot2.clf()
+    return render_template("admin_summary.html")
+
+
+def get_customer_summary(id):
+    Service_requests = Service_request.query.filter_by(customer_id = id)
+    summary={
+        "PENDING" : 0,
+        "ACCEPTED" : 0,
+        "COMPLETED" : 0
+    }
+  
+    for s in Service_requests:
+        if s.status in summary:
+            summary[s.status] += 1
+    x_name = list(summary.keys())
+    y_count=list(summary.values())
+    plt.bar(x_name,y_count,color="blue",width=0.4)
+    plt.title("SERVICE_REQUEST_STATUS")
+    plt.xlabel("STATUS")
+    plt.ylabel("NUMBER")
+    return plt
+
+@app.route("/customer1_summary/<id>")
+def customer_summary(id):
+    #customer= Customer.query.filter_by(id=id).first()
+    plot=get_customer_summary(id)
+    plot.savefig("./static/styles/images/"+id+"customer_summary.jpeg")
+    plot.clf()
+    return render_template("customer1_summary.html",id=id)
