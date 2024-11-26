@@ -473,15 +473,45 @@ def get_customer_summary(id):
     x_name = list(summary.keys())
     y_count=list(summary.values())
     plt.bar(x_name,y_count,color="blue",width=0.4)
-    plt.title("SERVICE_REQUEST_STATUS")
+    plt.title("CUSTOMER SERVICE REQUEST")
     plt.xlabel("STATUS")
     plt.ylabel("NUMBER")
     return plt
 
-@app.route("/customer1_summary/<id>")
+@app.route("/customer_summary/<id>")
 def customer_summary(id):
-    #customer= Customer.query.filter_by(id=id).first()
+    customer= Customer.query.filter_by(id=id).first()
     plot=get_customer_summary(id)
-    plot.savefig("./static/styles/images/"+id+"customer_summary.jpeg")
+    image_filename = f'customer{id}_summary.jpeg'
+    image_path = f'./static/styles/images/{image_filename}'
+    plot.savefig(image_path)
     plot.clf()
-    return render_template("customer1_summary.html",id=id)
+    return render_template("customer_summary.html",image_filename = image_filename,customer=customer)
+
+def get_professional_summary(id):
+    Service_requests = Service_request.query.filter_by(professtional_id = id)
+    summary={
+        "ACCEPTED" : 0,
+        "COMPLETED" : 0
+    }
+  
+    for s in Service_requests:
+        if s.status in summary:
+            summary[s.status] += 1
+    x_name = list(summary.keys())
+    y_count=list(summary.values())
+    plt.bar(x_name,y_count,color="blue",width=0.4)
+    plt.title("PROFESSIONAL SERVICE REQUEST")
+    plt.xlabel("STATUS")
+    plt.ylabel("NUMBER")
+    return plt
+
+@app.route("/professional_summary/<id>")
+def professional_summary(id):
+    professional= Professional.query.filter_by(id=id).first()
+    plot=get_professional_summary(id)
+    image_filename = f'professional{id}_summary.jpeg'
+    image_path = f'./static/styles/images/{image_filename}'
+    plot.savefig(image_path)
+    plot.clf()
+    return render_template("professional_summary.html",image_filename = image_filename,professional=professional)

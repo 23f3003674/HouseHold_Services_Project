@@ -14,7 +14,7 @@
                   <div class="card" style="width: 30rem;">
                       <div class="card-body">
                         <h5 class="card-title">SERVICE REQUEST SUMMARY</h5> 
-                        <img src ="./static/styles/images/{{id}}customer_summary.jpeg" width ="400" height = "300">
+                        <img src ="{{url_for('static', filename = './styles/images/customer'+str(id)+'_summary.jpeg')}}" width ="400" height = "300">
                       </div> 
                   </div>
                   
