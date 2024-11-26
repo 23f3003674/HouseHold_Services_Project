@@ -3,6 +3,7 @@ from .models import *
 from flask import current_app as app
 from datetime import date
 from werkzeug.utils import secure_filename
+import matplotlib.pyplot as plt
 
 @app.route("/")
 def home():
@@ -124,13 +125,13 @@ def add_service(name):
         sdescription=request.form.get("description")
         sbase_price=request.form.get("base_price")
         stime_required=request.form.get("time_required")
-        file = request.files["file_upload"]
-        if file.filename:
-            file_name =secure_filename(file.filename)
-            url = './uploaded_files'+file_name
-            file.save(url)
+        # file = request.files["file_upload"]
+        # if file.filename:
+        #     file_name =secure_filename(file.filename)
+        #     url = './uploaded_files'+file_name
+        #     file.save(url)
 
-        new_service = Service(name=sname,description=sdescription,base_price=sbase_price,time_required=stime_required,service_pic_url=url)
+        new_service = Service(name=sname,description=sdescription,base_price=sbase_price,time_required=stime_required)
         db.session.add(new_service)
         db.session.commit()
 
@@ -388,3 +389,24 @@ def edit_service_request(id,service_request_id):
         db.session.commit()
         return redirect(url_for("customer_dashboard",id=id))
     return render_template("edit_service_request.html",id=id,service_request=service_request,service=service,customer=customer,service_request_id=service_request_id)
+
+def get_services_summary():
+    services = Service.query.all()
+    summary={}
+    for s in services:
+        summary[s.name]=s.base_price
+    x_name = list(summary.keys())
+    y_base_price=list(summary.values())
+    plt.bar(x_name,y_base_price,color="blue",width=0.4)
+    plt.title("SERVICE/PRICE")
+    plt.xlabel("SERVICES")
+    plt.ylabel("PRICE")
+    return plt
+# summaries
+
+@app.route("/admin_summary/<name>")
+def admin_summary(name):
+    plot=get_services_summary()
+    plot.savefig("./static/styles/images/service_summary.jpeg")
+    plot.clf()
+    return render_template("admin_summary.html",name=name)
