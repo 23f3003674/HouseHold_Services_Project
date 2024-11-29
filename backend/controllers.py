@@ -4,6 +4,7 @@ from flask import current_app as app
 from datetime import date
 from werkzeug.utils import secure_filename
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 
 @app.route("/")
 def home():
@@ -486,7 +487,7 @@ def customer_summary(id):
     image_path = f'./static/styles/images/{image_filename}'
     plot.savefig(image_path)
     plot.clf()
-    return render_template("customer_summary.html",image_filename = image_filename,customer=customer)
+    return render_template("customer_summary.html",image_filename = image_filename,customer=customer,id=id)
 
 def get_professional_summary(id):
     Service_requests = Service_request.query.filter_by(professtional_id = id)
@@ -514,4 +515,4 @@ def professional_summary(id):
     image_path = f'./static/styles/images/{image_filename}'
     plot.savefig(image_path)
     plot.clf()
-    return render_template("professional_summary.html",image_filename = image_filename,professional=professional)
+    return render_template("professional_summary.html",image_filename = image_filename,professional=professional,id=id)
