@@ -21,7 +21,8 @@
                               <div class="card-body">
                                 <h5 class="card-title">{{service.name}}</h5>
                                 <p class="card-text">{{service.description}}</p>
-                                <p class="card-text">PRICE {{service.base_price}}</p>
+                                <p class="card-text">PRICE: {{service.base_price}}</p>
+                                <p class="card-text">TIME: {{service.time_required}}HOURS</p>
                                 <form action="/service_request/{{id}}" method ="POST">
                                   <input type ="hidden" name ="id" id ="id" value = {{id}}>
                                   <input type ="hidden" name ="s_id" id ="s_id" value = {{service.id}}>

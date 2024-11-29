@@ -95,7 +95,7 @@
               <div class="card-body">
                 <h5 class="card-title">{{service.name}}</h5>
                 <p class="card-text">ID {{service.id}}</p>
-                <p>PRICE {{service.base_price}}</p>
+                <p>PRICE :{{service.base_price}}</p>
                 <div class="mb-3">
                   <div class ="center">
                     <a href = "/edit_service/{{service.id}}/{{name}}" type = "button" class="btn btn-outline-warning">EDIT</a>
@@ -117,59 +117,6 @@
   <div class ="center"><a href="/service/{{name}}" type ="button" class="btn btn-primary">ADD SERVICE</a></div>
 </div>
 
-
-<!-- 
-                {%if services%}
-                  <div class ="margin"><b>
-                    SERVICES
-                  </b></div>
-                  <div class ="dashboard"> 
-                    <div class="container text-center">
-                      <b><div class="row">
-                        <div class="col">
-                          ID
-                        </div>
-                        <div class="col">
-                          SERVICE NAME
-                        </div>
-                        <div class="col">
-                          BASE PRICE
-                        </div>
-                        <div class="col">
-                          ACTION
-                        </div>
-                      </div></b>
-                    </div>
-                    <div class="container text-center">
-                      <div class="margin1">
-                        {%if services%}
-                          {%for service in services%}
-                          <div class="row">
-                              <div class="col">
-                                {{service.id}}
-                              </div>
-                              <div class="col">
-                                {{service.name}}
-                              </div>
-                              <div class="col">
-                                {{service.base_price}}
-                              </div>
-                              <div class="col">
-                                <a href="#" class="btn btn-outline-warning">EDIT</a> <a href="#" class="btn btn-outline-danger">DELETE</a>
-                              </div>
-                          </div>
-                          {%endfor%}
-                        {%else%}
-                          <h3 class="center">NO SERVICES AVAILABLE</h3>
-                        {%endif%} -->
-
-                      <!-- </div>
-                    </div>
-                  </div> -->
-                  <!-- <div class="mb-3">
-                    <div class ="center"><a href="/service/{{name}}" type ="button" class="btn btn-primary">ADD SERVICE</a></div>
-                {%endif%}  
-                  </div> -->
                   <div class = "margin"><b>
                     PROFESSIONALS REQUESTS
                   </b></div>
@@ -393,6 +340,9 @@
                         PROFESSIONAL ID
                       </div>
                       <div class="col">
+                        RATING
+                      </div>
+                      <div class="col">
                         STATUS
                       </div>
                     </div></b>
@@ -419,6 +369,9 @@
                                   </div>
                                   <div class="col">
                                     {{sr.professtional_id}}
+                                  </div>
+                                  <div class="col">
+                                    {{sr.rating}}
                                   </div>
                                   <div class="col">
                                     {{sr.status}}

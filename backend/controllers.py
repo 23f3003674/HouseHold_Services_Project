@@ -446,18 +446,22 @@ def get_services_request_summary():
 
 # summaries
 
-@app.route("/admin_summary")
-def admin_summary():
+@app.route("/admin_summary/<name>")
+def admin_summary(name):
     plot=get_services_summary()
-    plot.savefig("./static/styles/images/service_summary.jpeg")
+    image_filename = f'admin_services{name}_summary.jpeg'
+    image_path = f'./static/styles/images/{image_filename}'
+    plot.savefig(image_path)
     plot.clf()
     plot1=get_services_request_summary()
-    plot1.savefig("./static/styles/images/service_request_summary.jpeg")
+    image_filename1 = f'admin-service-request{name}_summary.jpeg'
+    image_path1 = f'./static/styles/images/{image_filename1}'
+    plot1.savefig(image_path1)
     plot1.clf()
     # plot2 = get_ad_professional_summary()
     # plot2.savefig("./static/styles/images/professional_rating_summary.jpeg")
     # plot2.clf()
-    return render_template("admin_summary.html")
+    return render_template("admin_summary.html",image_filename = image_filename,name=name)
 
 
 def get_customer_summary(id):

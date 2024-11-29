@@ -10,13 +10,13 @@
                 <div class="card-body">
                     <h5 class="card-title">SERVICE SUMMARY</h5>
                     <h6 class="card-subtitle">SERVICEvsPRICE</h6>
-                    <img src ="./static/styles/images/service_summary.jpeg" width ="400" height = "300">
+                    <img src ="{{url_for('static', filename = 'styles/images/'+image_filename)}}" width ="400" height = "300">
                 </div> 
             </div>
             <div class="card" style="width: 30rem;">
                 <div class="card-body">
                   <h5 class="card-title">SERVICE REQUEST SUMMARY</h5> 
-                  <img src ="./static/styles/images/service_request_summary.jpeg" width ="400" height = "300">
+                  <img src ="{{url_for('static', filename = 'styles/images/'+image_filename)}}" width ="400" height = "300">
                 </div> 
             </div>
             
