@@ -418,26 +418,6 @@ def get_services_request_summary():
     plt.ylabel("NUMBER")
     return plt
 
-# def get_ad_professional_summary():
-#     Service_requests = Service_request.query.all()
-#     professional_rating={}
-#     for s in Service_requests:
-#         if s.professtional_id not in professional_rating:
-#             professional_rating[s.professtional_id] = {'total_rating' : 0 , 'count' :0}
-#         professional_rating[s.professtional_id]['total_rating'] += s.rating
-#         professional_rating[s.professtional_id]['count'] += 1
-
-#     average = {}
-#     for professtional_id , data in professional_rating.items():
-#         average[professtional_id] = data['total_rating']/data['count']
-
-#     x_name = list(average.keys())
-#     y_count=list(average.values())
-#     plt.bar(x_name,y_count,color="blue",width=0.4)
-#     plt.title("PROFESSIONAL_RATING")
-#     plt.xlabel("PROFESSIONAL_ID")
-#     plt.ylabel("RATING")
-#     return plt
 
 # summaries
 
@@ -453,10 +433,8 @@ def admin_summary(name):
     image_path1 = f'./static/styles/images/{image_filename1}'
     plot1.savefig(image_path1)
     plot1.clf()
-    # plot2 = get_ad_professional_summary()
-    # plot2.savefig("./static/styles/images/professional_rating_summary.jpeg")
-    # plot2.clf()
-    return render_template("admin_summary.html",image_filename = image_filename,name=name)
+   
+    return render_template("admin_summary.html",image_filename = image_filename,image_filename1=image_filename1,name=name)
 
 
 def get_customer_summary(id):
