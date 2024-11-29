@@ -21,7 +21,6 @@ class Customer(db.Model):
     full_name = db.Column(db.String)
     address = db.Column(db.String)
     pincode = db.Column(db.Integer)
-    #user_login_id = db.Column(db.Integer, db.ForeignKey("user_login.id"),nullable = False)
     service_requests = db.relationship("Service_request",cascade="all,delete",backref="customer",lazy = True)
 
 
@@ -32,14 +31,9 @@ class Professional(db.Model):
     experience = db.Column(db.Integer)
     address = db.Column(db.String)
     pincode = db.Column(db.Integer)
-    #user_login_id = db.Column(db.Integer, db.ForeignKey("user_login.id"),nullable = False)
     service_requests = db.relationship("Service_request",cascade="all,delete",backref="professional",lazy = True)
     service_id = db.Column(db.Integer, db.ForeignKey("service.id"),nullable = False)
 
-
-#class service(db.model):
-#    id = db.column(db.Integer,primary_key=True)
- #   name = db.column(db.string,nullable = False)
 
 class Service(db.Model):
     __tablename__ ="service"

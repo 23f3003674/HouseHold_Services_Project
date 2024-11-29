@@ -21,7 +21,10 @@
                           CUSTOMER NAME
                         </div>
                         <div class="col">
-                          PIN CODE
+                          PINCODE
+                        </div>
+                        <div class="col">
+                          DATE
                         </div>
                         <div class="col">
                           STATUS
@@ -35,7 +38,7 @@
                       <div class="margin1">
                         {%for sr in service_request %}
                           {%for c in customers%}
-                            {%if c.id == sr.customer_id and sr.status == "PENDING"%}
+                            {%if c.id == sr.customer_id and sr.status == "PENDING" and c.pincode == professional.pincode %}
                               <div class="row">
                                 <div class="col">
                                   {{sr.id}}
@@ -45,6 +48,9 @@
                                 </div>
                                 <div class="col">
                                   {{c.pincode}}
+                                </div>
+                                <div class="col">
+                                  {{sr.date}}
                                 </div>
                                 <div class="col">
                                   {{sr.status}}
@@ -79,7 +85,10 @@
                         </div>
                         
                         <div class="col">
-                          PIN CODE
+                          PINCODE
+                        </div>
+                        <div class="col">
+                          DATE
                         </div>
                         <div class="col">
                           STATUS
@@ -104,6 +113,9 @@
                                   </div>
                                   <div class="col">
                                     {{c.pincode}}
+                                  </div>
+                                  <div class="col">
+                                    {{sr.date}}
                                   </div>
                                   <div class="col">
                                     {{sr.status}}

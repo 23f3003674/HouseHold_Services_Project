@@ -17,8 +17,9 @@
    
                       <div class="card-body">
                         <h5 class="card-title">{{p.full_name}}</h5>
-                        <p class="card-text">ID {{p.id}}</p>
-                        <p class="card-text">EXPERIENCE {{p.experience}} YEARS</p>
+                        <p class="card-text">ID: {{p.id}}</p>
+                        <p class="card-text">EXPERIENCE: {{p.experience}}YEARS</p>
+                        <p class="card-text">PINCODE: {{p.pincode}}</p>
                         <p>{%for s in services%}
                           {%if s.id == p.service_id%}
                             {{s.name}}
@@ -60,8 +61,8 @@
    
                       <div class="card-body">
                         <h5 class="card-title">{{c.full_name}}</h5>
-                        <p class="card-text">ID {{c.id}}</p>
-                        <p class="card-text">PINCODE {{c.pincode}}</p>
+                        <p class="card-text">ID :{{c.id}}</p>
+                        <p class="card-text">PINCODE :{{c.pincode}}</p>
 
                           <form action ="/block_customer/{{name}}" method ="POST">
                             <input type ="hidden" name ="id" id ="id"  value = {{c.id}}>
@@ -94,7 +95,7 @@
    
               <div class="card-body">
                 <h5 class="card-title">{{service.name}}</h5>
-                <p class="card-text">ID {{service.id}}</p>
+                <p class="card-text">ID :{{service.id}}</p>
                 <p>PRICE :{{service.base_price}}</p>
                 <div class="mb-3">
                   <div class ="center">
