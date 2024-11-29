@@ -2,7 +2,6 @@ from flask import Flask, render_template,request,url_for,redirect
 from .models import *
 from flask import current_app as app
 from datetime import date
-from werkzeug.utils import secure_filename
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
 
@@ -126,11 +125,7 @@ def add_service(name):
         sdescription=request.form.get("description")
         sbase_price=request.form.get("base_price")
         stime_required=request.form.get("time_required")
-        # file = request.files["file_upload"]
-        # if file.filename:
-        #     file_name =secure_filename(file.filename)
-        #     url = './uploaded_files'+file_name
-        #     file.save(url)
+
 
         new_service = Service(name=sname,description=sdescription,base_price=sbase_price,time_required=stime_required)
         db.session.add(new_service)
